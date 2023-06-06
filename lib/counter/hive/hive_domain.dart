@@ -6,7 +6,8 @@ class HiveDomain {
     Hive.registerAdapter(CountAdapter());
   }
 
-  Future<void> openAllBoxes() async {
-    await Hive.openBox<Count>('countBox');
+  static Future<Box<Count>> get getCountBox async {
+    final countBox = await Hive.openBox<Count>('countBox');
+    return countBox;
   }
 }

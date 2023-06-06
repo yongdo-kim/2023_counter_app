@@ -10,6 +10,5 @@ class HiveSetup {
   Future<void> registerAllAdapterAndOpenBoxes() async {
     //TODO : 공통부부문이 아니라서 따로 빼둠
     HiveDomain().registerAllAdapter();
-    await HiveDomain().openAllBoxes();
   }
 }
