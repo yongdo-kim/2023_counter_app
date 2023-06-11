@@ -24,22 +24,32 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   }
 
   Future<void> _onCounterUp(CounterUp event, Emitter<CounterState> emit) async {
-    final countBox = await HiveDomain.getCountBox;
-    await countBox.put('number', Count(number: state.count + 1));
+    _onCounterSave(count: state.count + 1);
     emit(state.copyWith(count: state.count + 1));
   }
 
-  void _onCounterDown(CounterDown event, Emitter<CounterState> emit) {
+  Future<void> _onCounterDown(
+      CounterDown event, Emitter<CounterState> emit) async {
     int count = state.count;
     count = count - 1;
     if (count < 0) {
+      _onCounterSave(count: 0);
       emit(state.copyWith(count: 0));
     } else {
+      _onCounterSave(count: count);
       emit(state.copyWith(count: count));
     }
   }
 
-  void _onCounterReset(CounterReset event, Emitter<CounterState> emit) {
+  Future<void> _onCounterReset(
+      CounterReset event, Emitter<CounterState> emit) async {
+    _onCounterSave(count: 0);
     emit(state.copyWith(count: 0));
+  }
+
+  //내부이벤트
+  Future<void> _onCounterSave({required int count}) async {
+    final countBox = await HiveDomain.getCountBox;
+    await countBox.put('number', Count(number: count));
   }
 }

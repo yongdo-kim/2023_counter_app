@@ -1,7 +1,8 @@
 import 'package:animated_flip_counter/animated_flip_counter.dart';
 import 'package:counter2023/common/injectable/injectable.dart';
-import 'package:counter2023/counter/application/counter_bloc.dart';
+import 'package:counter2023/counter/application/counter/counter_bloc.dart';
 import 'package:counter2023/counter/presentation/settingPage.dart';
+import 'package:counter2023/design/appbar/nari_app_bar.dart';
 import 'package:counter2023/design/button/nari_button.dart';
 import 'package:counter2023/design/color/nari_color.dart';
 import 'package:counter2023/design/font/nari_font.dart';
@@ -15,16 +16,14 @@ class CounterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
+      appBar: NariAppBar(
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: IconButton(
                 icon: const FaIcon(
                   FontAwesomeIcons.gear,
-                  color: NariColor.primaryGrey,
+                  color: NariColor.primaryBlack,
                   size: 32,
                 ),
                 onPressed: () {
@@ -65,9 +64,7 @@ class CounterApp extends StatelessWidget {
                         context.read<CounterBloc>().add(const CounterUp());
                       },
                     ),
-                    const SizedBox(
-                      height: 100,
-                    ),
+                    const Expanded(child: SizedBox()),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: const [CounterMinusBox(), CounterResetBox()],
