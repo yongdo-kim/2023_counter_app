@@ -37,6 +37,7 @@ dependencies:
   #specific 이 앱에만 사용되는 기능
   animated_digit: ^3.2.1
   animated_flip_counter: ^0.2.5
+  vibration: ^1.7.5
 
 dev_dependencies:
   flutter_test:

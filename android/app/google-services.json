@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "135170333693",
+    "project_id": "counter2023-326fa",
+    "storage_bucket": "counter2023-326fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:135170333693:android:7bbecaa9ac30087aded794",
+        "android_client_info": {
+          "package_name": "com.naristudio.plus.counter2023"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "135170333693-49ofdbrdqtbkg7gehelsjb579f5n3k8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAD6B9NRjzCbLzQ_tC3GzKBzmQ6TpKAmoQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "135170333693-49ofdbrdqtbkg7gehelsjb579f5n3k8e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "135170333693-te8ll1r31skq6kar0p1g1vl65tm3u3ti.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.naristudio.plus.counter2023"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

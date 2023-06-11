@@ -10,6 +10,7 @@ class SettingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: NariColor.primaryWhite,
       appBar: const NariAppBar(
+        title: '환경설정',
         actions: [],
       ),
       body: SafeArea(child: Container()),

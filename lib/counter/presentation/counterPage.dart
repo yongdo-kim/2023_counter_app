@@ -9,6 +9,7 @@ import 'package:counter2023/design/font/nari_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:vibration/vibration.dart';
 
 class CounterApp extends StatelessWidget {
   const CounterApp({super.key});
@@ -17,6 +18,7 @@ class CounterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NariAppBar(
+        title: "Counter",
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -60,7 +62,8 @@ class CounterApp extends StatelessWidget {
                       iconData: FontAwesomeIcons.plus,
                       iconSize: 64,
                       backgroundColor: Colors.white,
-                      onTap: () {
+                      onTap: () async {
+                      
                         context.read<CounterBloc>().add(const CounterUp());
                       },
                     ),
