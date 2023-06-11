@@ -13,6 +13,7 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     on<CounterStarted>(_onCounterStarted);
     on<CounterUp>(_onCounterUp);
     on<CounterDown>(_onCounterDown);
+    on<CounterReset>(_onCounterReset);
   }
 
   Future<void> _onCounterStarted(
@@ -36,5 +37,9 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
     } else {
       emit(state.copyWith(count: count));
     }
+  }
+
+  void _onCounterReset(CounterReset event, Emitter<CounterState> emit) {
+    emit(state.copyWith(count: 0));
   }
 }

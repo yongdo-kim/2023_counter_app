@@ -32,7 +32,7 @@ class NariButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
+      child: GestureDetector(
         onLongPress: onLongTap,
         onTap: onTap,
         child: Container(

@@ -39,7 +39,8 @@ class CounterApp extends StatelessWidget {
       ),
       body: SafeArea(
         child: BlocProvider(
-          create: (context) => getIt<CounterBloc>()..add(const CounterStarted()),
+          create: (context) =>
+              getIt<CounterBloc>()..add(const CounterStarted()),
           child: BlocBuilder<CounterBloc, CounterState>(
             builder: (context, state) {
               return Padding(
@@ -52,7 +53,7 @@ class CounterApp extends StatelessWidget {
                     AnimatedFlipCounter(
                         value: state.count,
                         textStyle: NariFont.bold.copyWith(
-                            fontSize: 80, color: NariColor.primaryBlack)),
+                            fontSize: 120, color: NariColor.primaryBlack)),
                     Expanded(child: Container()),
                     NariButton(
                       width: 256,
@@ -66,7 +67,12 @@ class CounterApp extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: 100,
-                    )
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: const [CounterMinusBox(), CounterResetBox()],
+                    ),
+                    const Expanded(child: SizedBox())
                   ],
                 ),
               );
@@ -74,6 +80,40 @@ class CounterApp extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+class CounterMinusBox extends StatelessWidget {
+  const CounterMinusBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return NariButton(
+      width: 100,
+      backgroundColor: Colors.white,
+      padding: EdgeInsets.zero,
+      iconData: FontAwesomeIcons.minus,
+      onTap: () {
+        context.read<CounterBloc>().add(const CounterDown());
+      },
+    );
+  }
+}
+
+class CounterResetBox extends StatelessWidget {
+  const CounterResetBox({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return NariButton(
+      width: 100,
+      backgroundColor: Colors.white,
+      padding: EdgeInsets.zero,
+      iconData: FontAwesomeIcons.arrowRotateLeft,
+      onTap: () {
+        context.read<CounterBloc>().add(const CounterReset());
+      },
     );
   }
 }

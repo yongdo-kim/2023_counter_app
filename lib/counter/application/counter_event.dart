@@ -17,3 +17,7 @@ class CounterUp extends CounterEvent {
 class CounterDown extends CounterEvent {
   const CounterDown();
 }
+
+class CounterReset extends CounterEvent {
+  const CounterReset();
+}

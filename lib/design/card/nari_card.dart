@@ -27,7 +27,7 @@ class NariCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
+      child: GestureDetector(
         onTap: onTap,
         child: Container(
             alignment: Alignment.center,
