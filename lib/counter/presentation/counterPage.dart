@@ -9,13 +9,14 @@ import 'package:counter2023/design/font/nari_font.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:vibration/vibration.dart';
+import 'package:just_audio/just_audio.dart';
 
 class CounterApp extends StatelessWidget {
   const CounterApp({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final player = AudioPlayer();
     return Scaffold(
       appBar: NariAppBar(
         title: "Counter",
@@ -63,7 +64,9 @@ class CounterApp extends StatelessWidget {
                       iconSize: 64,
                       backgroundColor: Colors.white,
                       onTap: () async {
-                      
+                        final duration = await player
+                            .setAsset("assets/sound/click_sound.mp3");
+                        await player.play();
                         context.read<CounterBloc>().add(const CounterUp());
                       },
                     ),
@@ -89,12 +92,15 @@ class CounterMinusBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final player = AudioPlayer();
     return NariButton(
       width: 100,
       backgroundColor: Colors.white,
       padding: EdgeInsets.zero,
       iconData: FontAwesomeIcons.minus,
-      onTap: () {
+      onTap: () async {
+        final duration = await player.setAsset("assets/sound/click_sound.mp3");
+        await player.play();
         context.read<CounterBloc>().add(const CounterDown());
       },
     );
@@ -106,12 +112,15 @@ class CounterResetBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final player = AudioPlayer();
     return NariButton(
       width: 100,
       backgroundColor: Colors.white,
       padding: EdgeInsets.zero,
       iconData: FontAwesomeIcons.arrowRotateLeft,
-      onTap: () {
+      onTap: () async {
+        final duration = await player.setAsset("assets/sound/click_sound.mp3");
+        await player.play();
         context.read<CounterBloc>().add(const CounterReset());
       },
     );
