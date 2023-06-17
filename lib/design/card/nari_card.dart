@@ -34,7 +34,7 @@ class NariCard extends StatelessWidget {
             width: width ?? MediaQuery.of(context).size.width,
             height: height ?? 80,
             decoration: BoxDecoration(
-              color: backgroundColor ?? NariColor.primaryColor,
+              color: backgroundColor ?? NariColor.primaryWhite,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(

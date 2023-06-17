@@ -12,8 +12,8 @@ class SettingVibeToggle extends SettingEvent {
 }
 
 //처음 시작할 카운터 셋팅
-class SettingInitCounter extends SettingEvent {
-  const SettingInitCounter();
+class SettingInit extends SettingEvent {
+  const SettingInit();
 }
 
 //한번 클릭마다 up할 카운트
@@ -24,4 +24,14 @@ class SettingUpValue extends SettingEvent {
 //한번 클릭마다 down할 카운트
 class SettingDownValue extends SettingEvent {
   const SettingDownValue();
+}
+
+//소리 On Off setting
+class SettingSoundToggle extends SettingEvent {
+  const SettingSoundToggle();
+}
+
+class SettingChangeSoundVolume extends SettingEvent {
+  final double volume;
+  const SettingChangeSoundVolume({required this.volume});
 }

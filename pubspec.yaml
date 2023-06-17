@@ -39,6 +39,7 @@ dependencies:
   animated_flip_counter: ^0.2.5
   vibration: ^1.7.5
   just_audio: ^0.9.34
+  animated_toggle_switch: ^0.6.2
 
 dev_dependencies:
   flutter_test:
