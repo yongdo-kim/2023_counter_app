@@ -100,9 +100,16 @@ class SoundVolume extends StatelessWidget {
                     min: 0,
                     max: 20,
                     value: state.soundVolume,
-                    onChanged: ((value) => context
-                        .read<SettingBloc>()
-                        .add(SettingChangeSoundVolume(volume: value))))
+                    activeColor:
+                        state.isSoundTurnOn ? null : NariColor.primaryGrey,
+                    inactiveColor: NariColor.secondaryGrey,
+                    onChanged: ((value) {
+                      if (state.isSoundTurnOn) {
+                        context
+                            .read<SettingBloc>()
+                            .add(SettingChangeSoundVolume(volume: value));
+                      }
+                    }))
               ],
             ),
           ),
