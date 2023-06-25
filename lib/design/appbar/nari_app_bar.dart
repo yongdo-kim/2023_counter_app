@@ -15,8 +15,10 @@ class NariAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      centerTitle: true,
       title: Text(
         title,
+        textAlign: TextAlign.center,
         style: NariFont.bold24.copyWith(color: NariColor.primaryBlack),
       ),
       elevation: 0,

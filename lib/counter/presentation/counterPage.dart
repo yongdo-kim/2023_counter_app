@@ -6,10 +6,14 @@ import 'package:counter2023/design/appbar/nari_app_bar.dart';
 import 'package:counter2023/design/button/nari_button.dart';
 import 'package:counter2023/design/color/nari_color.dart';
 import 'package:counter2023/design/font/nari_font.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:vibration/vibration.dart';
+
+import '../../common/admob/interstitial.dart';
 
 class CounterApp extends StatelessWidget {
   const CounterApp({super.key});
@@ -18,7 +22,7 @@ class CounterApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NariAppBar(
-        title: "Counter",
+        title: tr('title'),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 16),
@@ -28,54 +32,70 @@ class CounterApp extends StatelessWidget {
                   color: NariColor.primaryBlack,
                   size: 32,
                 ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const SettingPage()),
-                  );
+                onPressed: () async {
+                  await Interstitial(adLoadCallback: (value) {
+                    if (value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) {
+                          return const SettingPage();
+                        }),
+                      );
+                    }
+                  }).loadAd();
                 }),
           ),
         ],
       ),
       body: SafeArea(
-        child: BlocConsumer<CounterBloc, CounterState>(
-          listenWhen: (previous, current) => previous.count != current.count,
-          listener: (context, state) async {
-            await soundPlayer(context);
-          },
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const SizedBox(
-                    height: 100,
+        child: BlocBuilder<SettingBloc, SettingState>(
+          builder: (context, settingState) {
+            return BlocConsumer<CounterBloc, CounterState>(
+              listenWhen: (previous, current) =>
+                  previous.count != current.count,
+              listener: (context, counterState) async {
+                if (context.read<SettingBloc>().state.isSoundTurnOn) {
+                  await soundPlayer(context);
+                }
+
+                if (context.read<SettingBloc>().state.isVibratorTurnOn) {
+                  await vibratorPlayer(context);
+                }
+              },
+              builder: (context, state) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    children: [
+                      const SizedBox(
+                        height: 100,
+                      ),
+                      AnimatedFlipCounter(
+                          duration: const Duration(milliseconds: 100),
+                          value: state.count,
+                          textStyle: NariFont.bold.copyWith(
+                              fontSize: 120, color: NariColor.primaryBlack)),
+                      Expanded(child: Container()),
+                      NariButton(
+                        width: 256,
+                        height: 256,
+                        iconData: FontAwesomeIcons.plus,
+                        iconSize: 64,
+                        backgroundColor: Colors.white,
+                        onTap: () async {
+                          context.read<CounterBloc>().add(const CounterUp());
+                        },
+                      ),
+                      const Expanded(child: SizedBox()),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: const [CounterMinusBox(), CounterResetBox()],
+                      ),
+                      const Expanded(child: SizedBox())
+                    ],
                   ),
-                  AnimatedFlipCounter(
-                      duration: const Duration(milliseconds: 100),
-                      value: state.count,
-                      textStyle: NariFont.bold.copyWith(
-                          fontSize: 120, color: NariColor.primaryBlack)),
-                  Expanded(child: Container()),
-                  NariButton(
-                    width: 256,
-                    height: 256,
-                    iconData: FontAwesomeIcons.plus,
-                    iconSize: 64,
-                    backgroundColor: Colors.white,
-                    onTap: () async {
-                      context.read<CounterBloc>().add(const CounterUp());
-                    },
-                  ),
-                  const Expanded(child: SizedBox()),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [CounterMinusBox(), CounterResetBox()],
-                  ),
-                  const Expanded(child: SizedBox())
-                ],
-              ),
+                );
+              },
             );
           },
         ),
@@ -125,10 +145,27 @@ Future<void> soundPlayer(BuildContext context) async {
     if (volume == 0) {
       //do nothing
     } else {
+      print("yongdo is here $volume");
       final player = AudioPlayer();
-      await player.setVolume(volume);
       await player.setAsset("assets/sound/click_sound.mp3");
+      await player.setVolume(volume);
       await player.play();
+    }
+  }
+}
+
+Future<void> vibratorPlayer(BuildContext context) async {
+  final volume = context.read<SettingBloc>().state.vibratorVolume;
+  final isTurnOn = context.read<SettingBloc>().state.isVibratorTurnOn;
+
+  if (isTurnOn) {
+    if (volume == 0) {
+      //do nothing
+    } else {
+      final hasVibrator = await Vibration.hasVibrator() ?? false;
+      if (hasVibrator) {
+        Vibration.vibrate();
+      }
     }
   }
 }

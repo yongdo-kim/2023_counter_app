@@ -34,12 +34,15 @@ dependencies:
   hive_flutter: ^1.1.0
   hive: ^2.2.3
 
+  #localization
+  easy_localization: ^3.0.2
+  intl: ^0.17.0
+
   #specific 이 앱에만 사용되는 기능
   animated_digit: ^3.2.1
   animated_flip_counter: ^0.2.5
   vibration: ^1.7.5
   just_audio: ^0.9.34
-  animated_toggle_switch: ^0.6.2
 
 dev_dependencies:
   flutter_test:
@@ -47,10 +50,11 @@ dev_dependencies:
 
   flutter_lints: ^2.0.0
 
-  #중요
+  #dev_공통분모
   injectable_generator: ^2.1.5
   build_runner: ^2.3.0
   hive_generator: ^2.0.0
+  flutter_launcher_icons: ^0.12.0
 
 flutter:
   # The following line ensures that the Material Icons font is
@@ -61,6 +65,14 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/sound/
+    - assets/icon/
+    - resources/langs/
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/app_launcher_icon.png"
+  min_sdk_android: 21
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

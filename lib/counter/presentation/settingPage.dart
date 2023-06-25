@@ -3,8 +3,10 @@ import 'package:counter2023/design/appbar/nari_app_bar.dart';
 import 'package:counter2023/design/card/nari_card.dart';
 import 'package:counter2023/design/color/nari_color.dart';
 import 'package:counter2023/design/font/nari_font.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -13,28 +15,55 @@ class SettingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NariColor.primaryWhite,
-      appBar: const NariAppBar(
-        title: '환경설정',
-        actions: [],
+      appBar: NariAppBar(
+        title: tr('setting'),
+        actions: const [],
       ),
       body: SafeArea(child: BlocBuilder<SettingBloc, SettingState>(
         builder: (context, state) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
-              children: const [
-                SizedBox(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(
                   height: 24,
                 ),
 
-                //사운드
-                SoundToggle(),
-                SizedBox(
+                ///////////////사운드///////////////
+                FaIcon(
+                  FontAwesomeIcons.volumeHigh,
+                  color: state.isSoundTurnOn
+                      ? NariColor.primaryColor
+                      : NariColor.secondaryGrey,
+                  size: 24,
+                ),
+                const SizedBox(
                   height: 24,
                 ),
-
-                SoundVolume()
-                //숫자 초기화
+                const SoundToggle(),
+                const SizedBox(
+                  height: 24,
+                ),
+                const SoundVolume(),
+                ///////////////진동///////////////
+                const SizedBox(
+                  height: 36,
+                ),
+                FaIcon(
+                  FontAwesomeIcons.drum,
+                  color: state.isVibratorTurnOn
+                      ? NariColor.primaryColor
+                      : NariColor.secondaryGrey,
+                  size: 24,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                const VibratorToggle(), //진동크기는 반응이 느림
+                const SizedBox(
+                  height: 24,
+                ),
               ],
             ),
           );
@@ -58,8 +87,8 @@ class SoundToggle extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "버튼 소리",
+                Text(
+                  "${tr('sound')} on/off",
                   style: NariFont.bold16,
                 ),
                 Switch(
@@ -92,13 +121,13 @@ class SoundVolume extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Text(
-                  "소리 크기",
+                Text(
+                  "${tr('loudness')} on/off",
                   style: NariFont.bold16,
                 ),
                 Slider(
                     min: 0,
-                    max: 20,
+                    max: 2,
                     value: state.soundVolume,
                     activeColor:
                         state.isSoundTurnOn ? null : NariColor.primaryGrey,
@@ -110,6 +139,40 @@ class SoundVolume extends StatelessWidget {
                             .add(SettingChangeSoundVolume(volume: value));
                       }
                     }))
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+
+class VibratorToggle extends StatelessWidget {
+  const VibratorToggle({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingBloc, SettingState>(
+      builder: (context, state) {
+        return NariCard(
+          padding: EdgeInsets.zero,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${tr('vibration')} on/off",
+                  style: NariFont.bold16,
+                ),
+                Switch(
+                    value: state.isVibratorTurnOn,
+                    onChanged: (value) {
+                      context
+                          .read<SettingBloc>()
+                          .add(const SettingVibratorToggle());
+                    }),
               ],
             ),
           ),

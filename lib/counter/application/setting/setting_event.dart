@@ -6,11 +6,6 @@ abstract class SettingEvent extends Equatable {
   List<Object> get props => [];
 }
 
-//진동 on off
-class SettingVibeToggle extends SettingEvent {
-  const SettingVibeToggle();
-}
-
 //처음 시작할 카운터 셋팅
 class SettingInit extends SettingEvent {
   const SettingInit();
@@ -34,4 +29,14 @@ class SettingSoundToggle extends SettingEvent {
 class SettingChangeSoundVolume extends SettingEvent {
   final double volume;
   const SettingChangeSoundVolume({required this.volume});
+}
+
+//진동 on off
+class SettingVibratorToggle extends SettingEvent {
+  const SettingVibratorToggle();
+}
+
+class SettingChangeVibratorVolume extends SettingEvent {
+  final int volume;
+  const SettingChangeVibratorVolume({required this.volume});
 }

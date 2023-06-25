@@ -3,7 +3,6 @@ import 'package:counter2023/counter/domain/counter.dart';
 import 'package:counter2023/counter/hive/hive_domain.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
-import 'package:vibration/vibration.dart';
 
 part 'counter_event.dart';
 part 'counter_state.dart';
@@ -50,10 +49,6 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
 
   //내부이벤트
   Future<void> _onCounterSave({required int count}) async {
-    final hasVibrator = await Vibration.hasVibrator() ?? false;
-    if (hasVibrator) {
-      Vibration.vibrate();
-    }
     final countBox = await HiveDomain.getCountBox;
     await countBox.put('number', Count(number: count));
   }
