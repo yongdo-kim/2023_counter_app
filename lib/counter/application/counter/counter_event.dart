@@ -11,13 +11,21 @@ class CounterStarted extends CounterEvent {
 }
 
 class CounterUp extends CounterEvent {
-  const CounterUp();
+   final int index;
+  const CounterUp({required this.index});
 }
 
 class CounterDown extends CounterEvent {
-  const CounterDown();
+   final int index;
+  const CounterDown({required this.index});
 }
 
 class CounterReset extends CounterEvent {
-  const CounterReset();
+   final int index;
+  const CounterReset({required this.index});
+}
+
+class CounterIndexChanged extends CounterEvent {
+  final int index;
+  const CounterIndexChanged({required this.index});
 }
