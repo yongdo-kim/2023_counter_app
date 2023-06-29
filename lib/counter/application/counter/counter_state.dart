@@ -2,21 +2,19 @@ part of 'counter_bloc.dart';
 
 class CounterState extends Equatable {
   final bool isLoading;
-  final int count;
+
   //TEST
   final List<CounterObject> counterObjects;
   final int currentIndex;
 
   const CounterState({
     required this.isLoading,
-    required this.count,
     required this.counterObjects,
     required this.currentIndex,
   });
 
   factory CounterState.initial() => CounterState(
       isLoading: false,
-      count: 0,
       counterObjects: [
         CounterObject(id: 0, count: 0, title: ""),
         CounterObject(id: 1, count: 0, title: ""),
@@ -27,7 +25,7 @@ class CounterState extends Equatable {
       currentIndex: 0);
 
   @override
-  List<Object?> get props => [isLoading, count, counterObjects, currentIndex];
+  List<Object?> get props => [isLoading, counterObjects, currentIndex];
 
   CounterState copyWith(
       {bool? isLoading,
@@ -36,7 +34,6 @@ class CounterState extends Equatable {
       int? currentIndex}) {
     return CounterState(
         isLoading: isLoading ?? this.isLoading,
-        count: count ?? this.count,
         counterObjects: counterObjects ?? this.counterObjects,
         currentIndex: currentIndex ?? this.currentIndex);
   }

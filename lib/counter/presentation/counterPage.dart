@@ -23,10 +23,6 @@ class CounterApp extends StatefulWidget {
 class _CounterAppState extends State<CounterApp> {
   @override
   Widget build(BuildContext context) {
-    final PageController pageController = PageController(
-      initialPage: 0,
-    );
-
     return Scaffold(
       appBar: NariAppBar(
         title: tr('title'),

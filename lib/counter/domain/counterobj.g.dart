@@ -1,32 +1,38 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'counter.dart';
+part of 'counterobj.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class CountAdapter extends TypeAdapter<Count> {
+class CounterObjectHiveAdapter extends TypeAdapter<CounterObjectHive> {
   @override
-  final int typeId = 1;
+  final int typeId = 3;
 
   @override
-  Count read(BinaryReader reader) {
+  CounterObjectHive read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Count(
-      number: fields[0] as int,
+    return CounterObjectHive(
+      id: fields[0] as int,
+      count: fields[1] as int,
+      title: fields[2] as String,
     );
   }
 
   @override
-  void write(BinaryWriter writer, Count obj) {
+  void write(BinaryWriter writer, CounterObjectHive obj) {
     writer
-      ..writeByte(1)
+      ..writeByte(3)
       ..writeByte(0)
-      ..write(obj.number);
+      ..write(obj.id)
+      ..writeByte(1)
+      ..write(obj.count)
+      ..writeByte(2)
+      ..write(obj.title);
   }
 
   @override
@@ -35,7 +41,7 @@ class CountAdapter extends TypeAdapter<Count> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is CountAdapter &&
+      other is CounterObjectHiveAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

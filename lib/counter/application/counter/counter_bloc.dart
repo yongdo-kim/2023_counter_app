@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:counter2023/counter/domain/counterobj.dart';
 import 'package:counter2023/counter/hive/hive_domain.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -18,14 +19,20 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
 
   Future<void> _onCounterStarted(
       CounterStarted event, Emitter<CounterState> emit) async {
-    //TODO : 리스트로 변형 필요
-    final countBox = await HiveDomain.getCountBox;
-    final numberField = countBox.get('number');
-    emit(state.copyWith(count: numberField?.number ?? 0));
+    final countBox = await HiveDomain.getCountObjBox;
+    final List<CounterObject> saveList = [];
+    countBox.keys.map((key) {
+      final value = countBox.get(key);
+      saveList.add(CounterObject(
+          id: value?.id ?? -1,
+          title: value?.title ?? "",
+          count: value?.count ?? 0));
+    }).toList();
+    emit(state.copyWith(counterObjects: saveList));
   }
 
   Future<void> _onCounterUp(CounterUp event, Emitter<CounterState> emit) async {
-    final newData = state.counterObjects.map((obj) {
+    final newObjs = state.counterObjects.map((obj) {
       if (obj.id == event.index) {
         int count = obj.count + 1;
         return obj.copyWith(count: count);
@@ -33,28 +40,39 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
         return obj;
       }
     }).toList();
-    print(newData);
-    // _onCounterSave(, index: event.index);
-    emit(state.copyWith(counterObjects: newData));
+
+    _onCounterSave(index: event.index, objs: newObjs);
+
+    emit(state.copyWith(counterObjects: newObjs));
   }
 
   Future<void> _onCounterDown(
       CounterDown event, Emitter<CounterState> emit) async {
-    int count = state.count;
-    count = count - 1;
-    if (count < 0) {
-      _onCounterSave(index: event.index, count: 0);
-      emit(state.copyWith(count: 0));
-    } else {
-      _onCounterSave(index: event.index, count: count);
-      emit(state.copyWith(count: count));
-    }
+    final newObjs = state.counterObjects.map((obj) {
+      if (obj.id == event.index) {
+        int count = obj.count - 1;
+        if (count < 0) count = 0;
+        return obj.copyWith(count: count);
+      } else {
+        return obj;
+      }
+    }).toList();
+
+    _onCounterSave(index: event.index, objs: newObjs);
+    emit(state.copyWith(counterObjects: newObjs));
   }
 
   Future<void> _onCounterReset(
       CounterReset event, Emitter<CounterState> emit) async {
-    _onCounterSave(index: event.index, count: 0);
-    emit(state.copyWith(count: 0));
+    final newObjs = state.counterObjects.map((obj) {
+      if (obj.id == event.index) {
+        return obj.copyWith(count: 0);
+      } else {
+        return obj;
+      }
+    }).toList();
+    _onCounterSave(index: event.index, objs: newObjs);
+    emit(state.copyWith(counterObjects: newObjs));
   }
 
   Future<void> _onCounterIndexChanged(
@@ -63,8 +81,14 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   }
 
   //내부이벤트
-  Future<void> _onCounterSave({required int index, required int count}) async {
-    // final countBox = await HiveDomain.getCountBox;
-    // await countBox.put('number', Count(number: count));
+  //
+  Future<void> _onCounterSave(
+      {required int index, required List<CounterObject> objs}) async {
+    final countBox = await HiveDomain.getCountObjBox;
+    final targetObj = objs[index];
+    countBox.put(
+        index,
+        CounterObjectHive(
+            id: targetObj.id, count: targetObj.count, title: targetObj.title));
   }
 }
