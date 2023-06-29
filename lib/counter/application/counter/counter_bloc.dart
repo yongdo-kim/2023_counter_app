@@ -20,13 +20,13 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
   Future<void> _onCounterStarted(
       CounterStarted event, Emitter<CounterState> emit) async {
     final countBox = await HiveDomain.getCountObjBox;
-    final List<CounterObject> saveList = [];
+    final List<CounterObject> saveList = state.counterObjects;
     countBox.keys.map((key) {
       final value = countBox.get(key);
-      saveList.add(CounterObject(
+      saveList[key] = CounterObject(
           id: value?.id ?? -1,
           title: value?.title ?? "",
-          count: value?.count ?? 0));
+          count: value?.count ?? 0);
     }).toList();
     emit(state.copyWith(counterObjects: saveList));
   }
