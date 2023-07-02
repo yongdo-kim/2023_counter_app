@@ -58,8 +58,8 @@ class _CounterAppState extends State<CounterApp> {
               builder: (context, state) {
                 return Column(
                   children: [
-                    const Text(
-                      "옆으로 이동할 수 있어요! 🚀",
+                    Text(
+                      tr('canSwpie'),
                       style: NariFont.bold16,
                     ),
                     Expanded(
