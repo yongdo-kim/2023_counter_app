@@ -22,17 +22,13 @@ class CounterContent extends StatelessWidget {
     return BlocBuilder<SettingBloc, SettingState>(
       builder: (context, settingState) {
         return BlocConsumer<CounterBloc, CounterState>(
-          listenWhen: (previous, current) =>
-              previous.counterObjects[previous.currentIndex] !=
-              current.counterObjects[current.currentIndex],
           listener: (context, counterState) async {
-            if (context.read<SettingBloc>().state.isSoundTurnOn) {
-              await soundPlayer(context);
-            }
-
-            if (context.read<SettingBloc>().state.isVibratorTurnOn) {
-              await vibratorPlayer(context);
-            }
+            // if (context.read<SettingBloc>().state.isVibratorTurnOn) {
+            //   await vibratorPlayer(context);
+            // }
+            // if (context.read<SettingBloc>().state.isSoundTurnOn) {
+            //   await soundPlayer(context);
+            // }
           },
           builder: (context, state) {
             return Column(
@@ -53,6 +49,7 @@ class CounterContent extends StatelessWidget {
                   iconSize: 64,
                   backgroundColor: Colors.white,
                   onTap: () async {
+                    setSound(context);
                     context
                         .read<CounterBloc>()
                         .add(CounterUp(index: state.currentIndex));
@@ -89,6 +86,7 @@ class CounterMinusBox extends StatelessWidget {
           padding: EdgeInsets.zero,
           iconData: FontAwesomeIcons.minus,
           onTap: () async {
+            setSound(context);
             context
                 .read<CounterBloc>()
                 .add(CounterDown(index: state.currentIndex));
@@ -112,6 +110,7 @@ class CounterResetBox extends StatelessWidget {
           padding: EdgeInsets.zero,
           iconData: FontAwesomeIcons.arrowRotateLeft,
           onTap: () async {
+            setSound(context);
             context
                 .read<CounterBloc>()
                 .add(CounterReset(index: state.currentIndex));
@@ -122,6 +121,10 @@ class CounterResetBox extends StatelessWidget {
   }
 }
 
+Future<void> setSound(BuildContext context) async {
+  await Future.wait([soundPlayer(context), vibratorPlayer(context)]);
+}
+
 Future<void> soundPlayer(BuildContext context) async {
   final volume = context.read<SettingBloc>().state.soundVolume;
   final isTurnOn = context.read<SettingBloc>().state.isSoundTurnOn;
@@ -129,7 +132,6 @@ Future<void> soundPlayer(BuildContext context) async {
     if (volume == 0) {
       //do nothing
     } else {
-      print("yongdo is here $volume");
       final player = AudioPlayer();
       await player.setAsset("assets/sound/click_sound.mp3");
       await player.setVolume(volume);
