@@ -14,7 +14,7 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: NariColor.primaryWhite,
+      backgroundColor: Colors.white,
       appBar: NariAppBar(
         title: tr('setting'),
         actions: const [],

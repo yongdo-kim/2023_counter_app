@@ -1,4 +1,3 @@
-import 'package:counter2023/design/color/nari_color.dart';
 import 'package:flutter/material.dart';
 
 class NariCard extends StatelessWidget {
@@ -34,7 +33,7 @@ class NariCard extends StatelessWidget {
             width: width ?? MediaQuery.of(context).size.width,
             height: height ?? 80,
             decoration: BoxDecoration(
-              color: backgroundColor ?? NariColor.primaryWhite,
+              color: backgroundColor ?? Colors.white,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(
