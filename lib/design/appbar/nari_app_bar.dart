@@ -25,7 +25,7 @@ class NariAppBar extends StatelessWidget implements PreferredSizeWidget {
         style: NariFont.bold24.copyWith(color: NariColor.primaryBlack),
       ),
       elevation: 0,
-      backgroundColor: NariColor.primaryWhite,
+      backgroundColor: Colors.white,
       actions: actions,
     );
   }

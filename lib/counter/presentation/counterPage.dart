@@ -24,6 +24,7 @@ class _CounterAppState extends State<CounterApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: NariAppBar(
         title: tr('title'),
         actions: [
