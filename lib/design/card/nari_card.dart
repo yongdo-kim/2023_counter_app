@@ -1,4 +1,3 @@
-import 'package:counter2023/design/color/nari_color.dart';
 import 'package:flutter/material.dart';
 
 class NariCard extends StatelessWidget {
@@ -27,14 +26,14 @@ class NariCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
+      child: GestureDetector(
         onTap: onTap,
         child: Container(
             alignment: Alignment.center,
             width: width ?? MediaQuery.of(context).size.width,
             height: height ?? 80,
             decoration: BoxDecoration(
-              color: backgroundColor ?? NariColor.primaryColor,
+              color: backgroundColor ?? Colors.white,
               borderRadius: BorderRadius.circular(16),
               boxShadow: [
                 BoxShadow(

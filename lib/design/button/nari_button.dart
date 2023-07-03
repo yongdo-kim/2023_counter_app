@@ -9,29 +9,30 @@ class NariButton extends StatelessWidget {
   final EdgeInsets? padding;
   final String? text;
   final IconData? iconData;
+  final Color? iconColor;
   final double? iconSize;
   final Color? backgroundColor;
   final Function() onTap;
   final Function()? onLongTap;
 
-  const NariButton({
-    super.key,
-    this.width,
-    this.height,
-    this.padding,
-    this.text,
-    this.iconData,
-    this.iconSize,
-    this.backgroundColor,
-    required this.onTap,
-    this.onLongTap,
-  });
+  const NariButton(
+      {super.key,
+      this.width,
+      this.height,
+      this.padding,
+      this.text,
+      this.iconData,
+      this.iconSize,
+      this.backgroundColor,
+      required this.onTap,
+      this.onLongTap,
+      this.iconColor});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-      child: InkWell(
+      child: GestureDetector(
         onLongPress: onLongTap,
         onTap: onTap,
         child: Container(
@@ -55,7 +56,7 @@ class NariButton extends StatelessWidget {
               children: [
                 FaIcon(
                   iconData,
-                  color: Colors.white,
+                  color: iconColor ?? NariColor.primaryBlack,
                   size: iconSize ?? 32,
                 ),
                 Visibility(
