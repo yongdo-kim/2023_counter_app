@@ -8,9 +8,7 @@ class Interstitial {
   });
   InterstitialAd? _interstitialAd;
 
-  //yongdo android interstitial ID
   //TODO : ios 계정이 없기 때문에 우선 안드로이드로 픽스
-  final adAndroidUnitId = 'ca-app-pub-2398130378795170/4451126456';
 
   //testid
   final testAndroidId = 'ca-app-pub-3940256099942544/1033173712';
@@ -18,14 +16,13 @@ class Interstitial {
 
   /// Loads an interstitial ad.
   Future<void> loadAd() async {
-    print("yongdo is here loadAd started");
     await InterstitialAd.load(
-        adUnitId: adAndroidUnitId,
+        adUnitId: testAndroidId,
         request: const AdRequest(),
         adLoadCallback: InterstitialAdLoadCallback(
           // Called when an ad is successfully received.
           onAdLoaded: (ad) async {
-            print("yongdo is here loadAd onAdLoaded success!!");
+         
             // Keep a reference to the ad so you can show it later.
             _interstitialAd = ad;
             if (_interstitialAd != null) {
@@ -35,7 +32,7 @@ class Interstitial {
           },
           // Called when an ad request failed.
           onAdFailedToLoad: (LoadAdError error) {
-            print("yongdo is here loadAd onAdLoaded failed!! error : $error");
+          
           },
         ));
   }
