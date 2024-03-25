@@ -25,7 +25,7 @@ lib
 pubspec.yaml에는 사용된 라이브러리들을 주제별로 나누어 쉽게 식별할 수 있습니다.
 
 예시)
-  <common>
+common
   - cupertino_icons: ^1.0.2
   - flutter_bloc: ^8.1.3
   - get_it: ^7.6.0
@@ -34,7 +34,7 @@ pubspec.yaml에는 사용된 라이브러리들을 주제별로 나누어 쉽게
   - device_info_plus: ^9.0.1
   - font_awesome_flutter: ^10.4.0
 
-  <firebase>
+firebase
   - google_mobile_ads: ^3.0.0
   - firebase_core: ^2.12.0
   - firebase_analytics: ^10.4.
