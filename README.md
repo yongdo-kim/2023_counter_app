@@ -26,16 +26,16 @@ pubspec.yaml에는 사용된 라이브러리들을 주제별로 나누어 쉽게
 
 예시)
   <common>
-  cupertino_icons: ^1.0.2
-  flutter_bloc: ^8.1.3
-  get_it: ^7.6.0
-  injectable: ^2.1.1
-  equatable: ^2.0.5
-  device_info_plus: ^9.0.1
-  font_awesome_flutter: ^10.4.0
+  - cupertino_icons: ^1.0.2
+  - flutter_bloc: ^8.1.3
+  - get_it: ^7.6.0
+  - injectable: ^2.1.1
+  - equatable: ^2.0.5
+  - device_info_plus: ^9.0.1
+  - font_awesome_flutter: ^10.4.0
 
   <firebase>
-  google_mobile_ads: ^3.0.0
-  firebase_core: ^2.12.0
-  firebase_analytics: ^10.4.1
-  firebase_crashlytics: ^3.3.1
+  - google_mobile_ads: ^3.0.0
+  - firebase_core: ^2.12.0
+  - firebase_analytics: ^10.4.
+  - firebase_crashlytics: ^3.3.1
