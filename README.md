@@ -26,3 +26,9 @@ lib
 
 
 pubspec.yaml에는 사용된 라이브러리들을 주제별로 나누어 쉽게 식별할 수 있습니다.
+
+
+---
+
+play console에 제출된 앱입니다.
+![KakaoTalk_Photo_2024-03-31-21-42-34](https://github.com/yongdo-kim/2023_counter_app/assets/75930728/fc7242a1-8841-4b49-9452-b3245f314e7b)
