@@ -26,4 +26,3 @@ lib
 
 
 pubspec.yaml에는 사용된 라이브러리들을 주제별로 나누어 쉽게 식별할 수 있습니다.
-![Uploading KakaoTalk_Photo_2024-03-31-21-42-34.jpeg…]()
